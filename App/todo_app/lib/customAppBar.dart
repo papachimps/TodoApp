@@ -19,6 +19,7 @@ class CustomAppBar extends PreferredSize {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(top: 30),
       height: preferredSize.height,
       // color: Colors.transparent,
       alignment: Alignment.topCenter,
