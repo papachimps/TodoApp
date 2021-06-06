@@ -1,10 +1,19 @@
+// import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import './customAppBar.dart';
-import 'models/globals.dart';
-import 'screens/intray-page/intray-page.dart';
+
+import 'BLoc/globals.dart';
+import './UI/components/customAppBar.dart';
+import './UI/Intray/intray-page.dart';
 
 void main() {
+  // SystemChrome.setEnabledSystemUIOverlays([]);
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //   // statusBarColor: Colors.transparent,
+  //   systemNavigationBarColor: Colors.black26,
+  //   systemNavigationBarDividerColor: Colors.transparent,
+  // ));
   runApp(MyApp());
 }
 
@@ -13,6 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      scrollBehavior: CupertinoScrollBehavior(),
+      title: 'Todo',
+      color: kRedColor,
       home: Home(),
     );
   }
@@ -27,8 +39,8 @@ class Home extends StatelessWidget {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: CustomAppBar(
-          height: 240,
-          bottomRadius: 80,
+          height: kAppBarHeight,
+          bottomRadius: kAppBarBottomRadius,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -39,8 +51,7 @@ class Home extends StatelessWidget {
                   TabBar(
                     indicatorWeight: 0.001,
                     unselectedLabelColor: Colors.black,
-                    labelColor: redColor,
-                    physics: BouncingScrollPhysics(),
+                    labelColor: kRedColor,
                     indicatorColor: Colors.transparent,
                     tabs: [
                       Tab(icon: Icon(Icons.home)),
@@ -50,7 +61,10 @@ class Home extends StatelessWidget {
                   ),
                   // Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(left: 40, bottom: 40),
+                    padding: const EdgeInsets.only(
+                      left: kDefaultMarginFactor,
+                      bottom: kDefaultMarginFactor,
+                    ),
                     child: Text(
                       'Intray',
                       style: intrayTextStyle,
@@ -59,18 +73,20 @@ class Home extends StatelessWidget {
                 ],
               ),
               Positioned(
-                height: 80,
-                width: 80,
-                bottom: -40,
-                left: MediaQuery.of(context).size.width * 0.5 - 40,
+                height: kDefaultMarginFactor * 2,
+                width: kDefaultMarginFactor * 2,
+                bottom: -kDefaultMarginFactor,
+                left: MediaQuery.of(context).size.width * 0.5 -
+                    kDefaultMarginFactor,
                 child: FloatingActionButton(
+                  elevation: 16,
                   onPressed: () {
                     //TODO: add functionality to press.
                   },
-                  backgroundColor: redColor,
+                  backgroundColor: kRedColor,
                   child: Icon(
                     Icons.add,
-                    size: 60,
+                    size: kDefaultMarginFactor * 1.5,
                   ),
                 ),
               ),
@@ -80,7 +96,7 @@ class Home extends StatelessWidget {
         body: TabBarView(
           children: [
             IntrayPage(),
-            Container(color: redColor),
+            Container(color: kRedColor),
             Container(color: Colors.yellow),
           ],
         ),
